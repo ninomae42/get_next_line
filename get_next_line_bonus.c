@@ -87,7 +87,7 @@ char	*get_next_line(int fd)
 	char		*line;
 	static char	*fds[MAX_FD];
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || BUFFER_SIZE <= 0 || fd > 255)
 		return (NULL);
 	fds[fd] = read_from_fd_and_save(fd, fds[fd]);
 	if (fds[fd] == NULL)
