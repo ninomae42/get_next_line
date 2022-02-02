@@ -58,6 +58,29 @@ char	*read_from_fd_and_save(int fd, char *save)
 	return (save);
 }
 
+// trim the line that is in variable 'line' and creates copy of save
+char	*trim_line_in_save(char *save)
+{
+	char	*p_ret;
+	size_t	i;
+
+	i = 0;
+	while (save[i] != '\0' && save[i] != '\n')
+		i++;
+	if (save[i] == '\0')
+	{
+		free(save);
+		return (NULL);
+	}
+	p_ret = (char *)malloc(sizeof(char) * (ft_strlen_s(save) - i + 1));
+	if (p_ret == NULL)
+		return (NULL);
+	i++;
+	ft_stpcpy_s(p_ret, &save[i]);
+	free(save);
+	return (p_ret);
+}
+
 char	*get_next_line(int fd)
 {
 	char		*line;
@@ -69,5 +92,6 @@ char	*get_next_line(int fd)
 	if (save == NULL)
 		return (NULL);
 	line = create_line(save);
+	save = trim_line_in_save(save);
 	return (line);
 }
