@@ -1,5 +1,36 @@
 #include "get_next_line.h"
 
+// create a line from the string passed by an argument.
+char	*create_line(const char *save)
+{
+	char	*p_line;
+	size_t	i;
+
+	i = 0;
+	if (save[i] == '\0')
+		return (NULL);
+	while (save[i] != '\0' && save[i] != '\n')
+		i++;
+	p_line = (char *)malloc(sizeof(char) * i);
+	if (p_line == NULL)
+		return (NULL);
+	i = 0;
+	while (save[i] != '\0' && save[i] != '\n')
+	{
+		p_line[i] = save[i];
+		i++;
+	}
+	if (save[i] == '\n')
+	{
+		p_line[i] = '\n';
+		i++;
+	}
+	if (save[i] == '\0')
+		p_line[i] = '\0';
+	return (p_line);
+}
+
+// read from fd to buffer, and save it to static variable 'save'.
 char	*read_from_fd_and_save(int fd, char *save)
 {
 	char	*buf;
@@ -28,6 +59,7 @@ char	*read_from_fd_and_save(int fd, char *save)
 
 char	*get_next_line(int fd)
 {
+	char		*line;
 	static char	*save;
 
 	if (fd < 0 || BUFFER_SIZE < 0)
@@ -35,6 +67,6 @@ char	*get_next_line(int fd)
 	save = read_from_fd_and_save(fd, save);
 	if (save == NULL)
 		return (NULL);
-	else
-		return (save);
+	line = create_line(save);
+	return (line);
 }
