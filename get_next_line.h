@@ -5,9 +5,9 @@
 # include <stddef.h>
 
 char	*get_next_line(int fd);
-char	*read_and_save(int fd, char *save);
-char	*get_line(char *save);
-char	*trim_save(char *save);
+char	*read_from_fd_and_save(int fd, char *save);
+char	*create_line(const char *save);
+char	*trim_line_in_save(char *save);
 
 size_t	ft_strlen_s(const char *s);
 char	*ft_strchr_s(const char *s, int c);
