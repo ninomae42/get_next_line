@@ -1,5 +1,4 @@
 #include "get_next_line.h"
-#include <stdlib.h>
 
 // locate character in string. When s is NULL, return NULL.
 char	*ft_strchr_s(const char *s, int c)
